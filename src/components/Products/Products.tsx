@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { gql, useQuery } from "@apollo/client";
 import ProductCard from "../ProductCard/ProductCard";
 import Loader from "../Loader/Loader";
@@ -24,9 +24,19 @@ const Products = () => {
 `;
   const { loading, error, data, refetch } = useQuery(GET_ALL_PRODUCTS);
 
+  const calculateTotal:any = useCallback(() => {
+    let sum = 0;
+    for (let i = 0; i < cartArr.length; i++) {
+      sum += Number(cartArr[i].quantity) * Number(cartArr[i].price);
+    }
+
+    setTotal(sum);
+  }, [cartArr]);
+
+
   useEffect(() => {
     calculateTotal();
-  }, [cartArr, currency]);
+  }, [cartArr, currency, calculateTotal]);
 
   const onToggle = () => {
     setShowModal(!showModal);
@@ -72,15 +82,6 @@ const Products = () => {
     refetch();
   };
 
-  const calculateTotal = () => {
-    let sum = 0;
-    for (let i = 0; i < cartArr.length; i++) {
-      sum += Number(cartArr[i].quantity) * Number(cartArr[i].price);
-    }
-
-    console.log(sum, ["sum"], cartArr.length, cartArr);
-    setTotal(sum);
-  };
 
   if (loading) {
     return (
@@ -149,7 +150,6 @@ const Products = () => {
                   <p>Your Cart is empty</p>
                 ) : (
                   cartArr.map((val: any) => {
-                    console.log(total, ["Toatla"]);
                     return (
                       <CartItem
                         key={val.id}

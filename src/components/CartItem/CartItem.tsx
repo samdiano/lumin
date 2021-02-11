@@ -37,7 +37,7 @@ const CartItem = (props: cartDataProps) => {
          product.price = cartItemPrice;
         updatePrice(product);
       }
-  }, [cartItemPrice])
+  }, [cartItemPrice, product, updatePrice])
 
   const incrementCount = () => {
     setCurrentCount(currentCount + 1);
