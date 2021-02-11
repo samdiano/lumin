@@ -12,7 +12,7 @@ import Products from "./components/Products/Products";
 const createApolloClient = () => {
   return new ApolloClient({
     link: new HttpLink({
-      uri: "https://pangaea-interviews.now.sh/api/graphql",
+      uri: process.env.REACT_APP_API_URL,
     }),
     cache: new InMemoryCache(),
   });
