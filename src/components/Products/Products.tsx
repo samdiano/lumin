@@ -18,7 +18,7 @@ const GET_ALL_PRODUCTS = gql`
 `;
 
 const Products = () => {
-  const [showModal, setShowModal] = useState(true);
+  const [showModal, setShowModal] = useState(false);
   const [total, setTotal] = useState(0);
   const [cartArr, setCartArr] = useState<any>([]);
   const [currency, setCurrency] = useState("$");
