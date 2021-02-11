@@ -7,12 +7,13 @@ interface dataProps {
   id: number;
   image: string;
   title: string;
+  currency: string;
   price: string;
   callback: Function;
   onToggle: Function;
 }
 const ProductCard: React.FC<dataProps> = (data) => {
-  const { image, title, price, onToggle, callback } = data;
+  const { image, title, price, currency, onToggle, callback } = data;
   const [showModal, setShowModal] = useState(false);
 
   const onClick = (payload: any) => {
@@ -28,7 +29,7 @@ const ProductCard: React.FC<dataProps> = (data) => {
       <div className="card-content">
         <h1>{title}</h1>
         <div className="card-footer">
-          <span className="card-price">${price}</span>
+          <span className="card-price">{price} {currency}</span>
           <button className="button button-small" onClick={() => onClick(data)}>
             Add to Cart
           </button>
