@@ -48,5 +48,5 @@ https://pangaea-interviews.now.sh/api/graphql, retrieve the products and display
 * Run `yarn start` to start the app
 * Navigate to [localhost:3000](http://localhost:3000/) in browser to access the application
 
-##### The application is hosted at [https://lumin.herokuapp.com](https://lumin.herokuapp.com).
+##### The application is hosted at [https://compassionate-meninsky-c7a5a0.netlify.app](https://compassionate-meninsky-c7a5a0.netlify.app).
 
