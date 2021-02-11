@@ -1,10 +1,10 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 
 // product card style
 import "./ProductCard.css";
 
 interface dataProps {
-  id:number;
+  id: number;
   image: string;
   title: string;
   price: string;
@@ -29,7 +29,9 @@ const ProductCard: React.FC<dataProps> = (data) => {
         <h1>{title}</h1>
         <div className="card-footer">
           <span className="card-price">${price}</span>
-          <button className="button button-small" onClick={() => onClick(data)}>Add to Cart</button>
+          <button className="button button-small" onClick={() => onClick(data)}>
+            Add to Cart
+          </button>
         </div>
       </div>
     </div>

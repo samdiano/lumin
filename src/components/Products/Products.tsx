@@ -130,7 +130,9 @@ const Products = () => {
             </div>
             <div className="modal-body">
               <div className="cartitem-wrapper">
-                {cartArr.length === 0 ? <p>Your Cart is empty</p> : (
+                {cartArr.length === 0 ? (
+                  <p>Your Cart is empty</p>
+                ) : (
                   cartArr.map((val: any) => {
                     console.log(total, ["Toatla"]);
                     return (
@@ -147,11 +149,9 @@ const Products = () => {
                         calculateTotal={calculateTotal}
                         update={callback}
                       />
-                    )
+                    );
                   })
                 )}
-
-
               </div>
             </div>
             <div className="modal-footer">
@@ -160,7 +160,9 @@ const Products = () => {
                 <span>{currency + " " + total}</span>
               </div>
               <div className="flex">
-                <button className="button checkout-btn">Proceed to checkout</button>
+                <button className="button checkout-btn">
+                  Proceed to checkout
+                </button>
               </div>
             </div>
           </div>

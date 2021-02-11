@@ -19,7 +19,7 @@ const Modal = ({ children }: IProps) => {
     elRef.current && modalRoot?.appendChild(elRef.current);
 
     return () => {
-        elRef.current && modalRoot?.removeChild(elRef.current);
+      elRef.current && modalRoot?.removeChild(elRef.current);
     };
   }, []);
 

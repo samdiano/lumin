@@ -1,46 +1,56 @@
-# Getting Started with Create React App
+# LUMIN
+[![Actions Status](https://github.com/samdiano/lumin/workflows/ci/badge.svg)](https://github.com/samdiano/lumin/actions)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+This is a recreation of luminskin.com product page and cart using a GraphQL API
 
-In the project directory, you can run:
+## Table of Contents
 
-### `yarn start`
+* [Technologies](#technologies)
+* [Features Implemented](#features-implemented)
+* [Getting Started](#getting-started)
+  * [Installation](#installation)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Technologies
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+* [React](https://reactjs.org/) - JavaScript Library for Building User Interfaces
+* [Apollo Client](https://www.apollographql.com/docs/react/) - a comprehensive state management library for JavaScript that enables you to manage both local and remote data with GraphQL
 
-### `yarn test`
+### Supporting Packages
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### Linter
 
-### `yarn build`
+* [ESLint](https://eslint.org/) - Linter Tool
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Features Implemented
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Users (Caterers and Customers)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+* Users should be able to signin and signup on the app as either a caterer or a customer
 
-### `yarn eject`
+### Product Page
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+* Should query from
+https://pangaea-interviews.now.sh/api/graphql, retrieve the products and display them in a grid. Feel free to use graphql client libraries such as Apollo Client
+* Each item should display the image, title, price and a "Add to Cart" button.
+* For screens wider than 768px, it should show grid of 3 items, for less than 768px wide it should show a grid of two wide.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Cart
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+* When a user clicks "Add to Cart" on an item it should open the cart sidebar and add the item in.
+* If the item already exists it should increment the quantity.
+* Clicking the + or - buttons will increase or descrease the quantity, if the quantity is 1 and the "-" button is pressed it should remove the item.
+* In the top left there is a currency select, doing so should requery the GraphQL api with a new currency and update the prices.
+* It should sum the items in the cart and display them in the correct selected currency.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Getting Started
 
-## Learn More
+### Installation
+* Clone this repository using `git clone git@github.com:samdiano/lumin.git`
+* Use the `.env.example` file to setup your environmental variables and rename the file to `.env`
+* Run `yarn install` to install all dependencies
+* Run `yarn start` to start the app
+* Navigate to [localhost:3000](http://localhost:3000/) in browser to access the application
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+##### The application is hosted at [https://lumin.herokuapp.com](https://lumin.herokuapp.com).
 
-To learn React, check out the [React documentation](https://reactjs.org/).

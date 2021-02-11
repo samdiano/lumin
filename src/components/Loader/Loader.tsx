@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 // loader style
 import "./Loader.css";
@@ -11,7 +11,7 @@ const Loader = () => {
       <div className="line"></div>
       <div className="line"></div>
     </div>
-  )
-}
+  );
+};
 
 export default Loader;
