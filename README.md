@@ -24,10 +24,6 @@ This is a recreation of luminskin.com product page and cart using a GraphQL API
 
 ## Features Implemented
 
-### Users (Caterers and Customers)
-
-* Users should be able to signin and signup on the app as either a caterer or a customer
-
 ### Product Page
 
 * Should query from

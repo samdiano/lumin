@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // cart ite style
 import "./CartItem.css";
 
@@ -11,8 +11,9 @@ interface cartDataProps {
   removeItem: any;
   currency: string;
   calculateTotal: any;
-  product: object;
+  product: any;
   update: any;
+  updatePrice: any;
 }
 
 const CartItem = (props: cartDataProps) => {
@@ -27,8 +28,16 @@ const CartItem = (props: cartDataProps) => {
     calculateTotal,
     product,
     update,
+    updatePrice,
   } = props;
   const [currentCount, setCurrentCount] = useState(itemQuantity);
+
+  useEffect(() => {
+      if(cartItemPrice !== product.price){
+         product.price = cartItemPrice;
+        updatePrice(product);
+      }
+  }, [cartItemPrice])
 
   const incrementCount = () => {
     setCurrentCount(currentCount + 1);
@@ -88,7 +97,7 @@ const CartItem = (props: cartDataProps) => {
             +
           </button>
         </div>
-        <div className="cartitem-price">{currency + "" + cartItemPrice}</div>
+        <div className="cartitem-price">{cartItemPrice + " " + currency}</div>
         <img className="cartitem-image" src={cartItemImage} alt="cart item" />
       </div>
     </div>

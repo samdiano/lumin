@@ -6,38 +6,38 @@ import Modal from "../CartNav/CartNav";
 import CartItem from "../CartItem/CartItem";
 import SelectCurrency from "../../constants/SelectCurrency/SelectCurrency";
 
-const GET_ALL_PRODUCTS = gql`
+const Products = () => {
+  const [showModal, setShowModal] = useState(false);
+  const [total, setTotal] = useState(0);
+  const [cartArr, setCartArr] = useState<any>([]);
+  const [currency, setCurrency] = useState("USD");
+
+  const GET_ALL_PRODUCTS = gql`
   query products {
     products {
       id
       title
       image_url
-      price(currency: USD)
+      price(currency: ${currency})
     }
   }
 `;
-
-const Products = () => {
-  const [showModal, setShowModal] = useState(false);
-  const [total, setTotal] = useState(0);
-  const [cartArr, setCartArr] = useState<any>([]);
-  const [currency, setCurrency] = useState("$");
-  const { loading, error, data } = useQuery(GET_ALL_PRODUCTS);
+  const { loading, error, data, refetch } = useQuery(GET_ALL_PRODUCTS);
 
   useEffect(() => {
     calculateTotal();
-  }, [cartArr]);
+  }, [cartArr, currency]);
 
   const onToggle = () => {
     setShowModal(!showModal);
   };
 
-  const callback = (_product: any, decreament = false) => {
+  const callback = (_product: any, decrement = false, price = false) => {
     let quantity = 1;
     if (cartArr.length > 0) {
       for (let i = 0; i < cartArr.length; i++) {
         if (cartArr[i].id === _product.id) {
-          decreament ? cartArr[i].quantity-- : cartArr[i].quantity++;
+          decrement ? cartArr[i].quantity-- : cartArr[i].quantity++;
           setCartArr([...cartArr]);
 
           return;
@@ -50,6 +50,16 @@ const Products = () => {
       setCartArr([...cartArr, product]);
     }
   };
+  const updatePrice = (_product: any) => {
+    if (cartArr.length > 0) {
+      for (let i = 0; i < cartArr.length; i++) {
+        if (cartArr[i].id === _product.id) {
+          setCartArr([...cartArr]);
+          return;
+        }
+      }
+    }
+  };
   const removeItem = (id: number) => {
     const newCart = cartArr.filter((v: any) => {
       return v.id !== id;
@@ -59,6 +69,7 @@ const Products = () => {
 
   const currencyHandler = (currencyType: string) => {
     setCurrency(currencyType);
+    refetch();
   };
 
   const calculateTotal = () => {
@@ -67,7 +78,7 @@ const Products = () => {
       sum += Number(cartArr[i].quantity) * Number(cartArr[i].price);
     }
 
-    console.log(sum, ["sum"], cartArr.length);
+    console.log(sum, ["sum"], cartArr.length, cartArr);
     setTotal(sum);
   };
 
@@ -94,6 +105,7 @@ const Products = () => {
               onToggle={onToggle}
               image={product.image_url}
               title={product.title}
+              currency={currency}
               price={product.price}
             />
           </div>
@@ -126,7 +138,10 @@ const Products = () => {
                   />
                 </svg>
               </span>
-              <SelectCurrency currencyHandler={currencyHandler} />
+              <SelectCurrency
+                currency={currency}
+                currencyHandler={currencyHandler}
+              />
             </div>
             <div className="modal-body">
               <div className="cartitem-wrapper">
@@ -140,7 +155,12 @@ const Products = () => {
                         key={val.id}
                         id={val.id}
                         cartItemTitle={val.title}
-                        cartItemPrice={val.price}
+                        cartItemPrice={
+                          data.products.find(
+                            (product: any) => product.id === val.id
+                          ).price
+                        }
+                        updatePrice={updatePrice}
                         cartItemImage={val.image}
                         itemQuantity={val.quantity}
                         removeItem={removeItem}
@@ -157,7 +177,7 @@ const Products = () => {
             <div className="modal-footer">
               <div className="subtotal">
                 <span>Subtotal</span>
-                <span>{currency + " " + total}</span>
+                <span>{total + " " + currency}</span>
               </div>
               <div className="flex">
                 <button className="button checkout-btn">
